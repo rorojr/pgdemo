@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Tables" targetRuntime="MyBatis3" defaultModelType="flat">
+<!--        <property name="beginningDelimiter" value="`"/>-->
+<!--        <property name="endingDelimiter" value="`"/>-->
+        <!-- Mapper 直接覆盖, 不合并 -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <!-- Mapper 添加 @Mapper 注解 -->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <!-- DO 生成 toString 方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!-- 数据Model链式构建插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ModelBuilderPlugin"/>
+        <!-- 数据Model属性对应Column获取插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ModelColumnPlugin"/>
+        <!-- 查询单条数据插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin"/>
+
+        <!-- MYSQL分页插件 postgresql 不支持 -->
+        <!-- <plugin type="com.itfsw.mybatis.generator.plugins.LimitPlugin">-->
+            <!-- 通过配置startPage影响Example中的page方法开始分页的页码，默认分页从0开始 -->
+            <!-- <property name="startPage" value="0"/>-->
+        <!-- </plugin>-->
+
+        <!-- 批量插入插件 -->
+        <!-- <plugin type="com.itfsw.mybatis.generator.plugins.BatchInsertPlugin"/> -->
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://106.14.70.176:5432/postgres"
+                        userId="css_ofo_process"
+                        password="CSSChina&amp;20220916&amp;OfoProcess">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.css.demo.component.mybatis.model"
+                            targetProject="./src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="./src/main/resources/mybatis">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.css.demo.component.mybatis.jdbc"
+                             targetProject="./src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <table schema="public" tableName="user"
+               domainObjectName="User"
+               delimitIdentifiers="true"
+               delimitAllColumns="true">
+            <property name="useActualColumnNames" value="false"/>
+            <property name="implements" value="java.io.Serializable"/>
+<!--            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>-->
+<!--            <columnOverride column="id" javaType="java.lang.String" jdbcType="UUID"/>-->
+<!--            <columnOverride column="status" javaType="java.lang.Integer" jdbcType="INT2"/>-->
+        </table>
+
+    </context>
+</generatorConfiguration>
